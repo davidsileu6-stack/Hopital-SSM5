@@ -1,0 +1,497 @@
+/* --- VARIABLES & RESET --- */
+:root {
+  --primary-color: #0a2540; /* Bleu Nuit Profond (Militaire/Pro) */
+  --accent-color: #007aff;  /* Bleu Tech brillant */
+  --success-color: #10b981;
+  --bg-overlay: rgba(15, 23, 42, 0.6); /* Filtre sombre sur l'image */
+  --glass-bg: rgba(255, 255, 255, 0.92); /* Fond des cartes */
+  --glass-border: 1px solid rgba(255, 255, 255, 0.5);
+  --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.2);
+  --radius: 16px;
+  --font-main: 'Poppins', sans-serif;
+}
+/* Ajoutez ce bloc à votre style.css */
+
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 0.95em;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.styled-table thead tr {
+    background-color: var(--primary-color); /* Bleu Nuit */
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+    transition: background-color 0.3s ease;
+}
+
+.styled-table tbody tr:hover {
+    background-color: #f0f9ff; /* Léger survol bleu */
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid var(--primary-color);
+}
+/* --- SECTION PAIEMENT SPÉCIFIQUE --- */
+
+.payment-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 25px; /* Espace entre les boutons */
+  margin: 30px 0;
+  flex-wrap: wrap;
+}
+
+.pay-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 160px;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.pay-btn span {
+  font-weight: 700;
+  margin-top: 15px;
+  font-size: 1rem;
+  color: #334155;
+}
+
+.pay-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  /* Optionnel : petite ombre sous le logo */
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); 
+}
+
+/* Icône de validation cachée par défaut */
+.check-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+
+/* --- STYLE SPÉCIFIQUE MTN (Jaune) --- */
+/* Code couleur MTN : #FFCC00 (Jaune vif) */
+.btn-mtn:hover, .btn-mtn.active {
+  border-color: #ffcc00;
+  background: #fffbef; /* Fond jaune très pâle */
+  box-shadow: 0 10px 25px rgba(255, 204, 0, 0.4); /* Lueur jaune */
+  transform: translateY(-5px);
+}
+
+.btn-mtn:hover .check-icon {
+  opacity: 1;
+  transform: scale(1);
+  color: #d4a017; /* Jaune foncé pour l'icone */
+}
+
+/* --- STYLE SPÉCIFIQUE ORANGE MONEY (Orange) --- */
+/* Code couleur Orange : #FF7900 */
+.btn-orange:hover, .btn-orange.active {
+  border-color: #ff7900;
+  background: #fff5eb; /* Fond orange très pâle */
+  box-shadow: 0 10px 25px rgba(255, 121, 0, 0.4); /* Lueur orange */
+  transform: translateY(-5px);
+}
+
+.btn-orange:hover .check-icon {
+  opacity: 1;
+  transform: scale(1);
+  color: #ff7900;
+}
+
+/* --- RESPONSIVE MOBILE --- */
+@media (max-width: 480px) {
+  .payment-buttons {
+    flex-direction: column; /* Les boutons passent l'un sous l'autre sur petit écran */
+    align-items: center;
+  }
+  
+  .pay-btn {
+    width: 100%; /* Pleine largeur sur mobile */
+    height: auto;
+    flex-direction: row; /* Logo à gauche, texte à droite */
+    padding: 15px;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+  
+  .pay-btn span {
+    margin-top: 0;
+  }
+
+  .pay-logo {
+    width: 40px;
+    height: 40px;
+  }
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-main);
+  color: #334155;
+  line-height: 1.6;
+  background-color: #f0f2f5;
+  overflow-x: hidden;
+}
+
+/* --- ARRIÈRE-PLAN --- */
+#background-slider {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Mettez ici une belle image d'hôpital ou abstraite médicale */
+  background: url('../assets/images/bg-hospital.jpg') no-repeat center center/cover; 
+  z-index: -2;
+  /* Animation subtile de zoom */
+  animation: slowZoom 20s infinite alternate; 
+}
+
+@keyframes slowZoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-overlay);
+  backdrop-filter: blur(4px); /* Floute légèrement l'arrière plan pour le focus */
+  z-index: -1;
+}
+
+.main-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* --- HEADER --- */
+header {
+  text-align: center;
+  color: white;
+  margin-bottom: 50px;
+  animation: fadeInDown 1s ease;
+}
+
+.logo-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+header h1 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.subtitle {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+  font-weight: 300;
+}
+
+/* --- GLASS CARDS (Style principal des sections) --- */
+.glass-card {
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin-bottom: 30px;
+  box-shadow: var(--shadow-lg);
+  /* backdrop-filter: blur(10px);  Si on veut de la transparence sur les cartes */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-5px); /* Petit effet de levitation */
+}
+
+h2 {
+  color: var(--primary-color);
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* --- BOUTONS --- */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-color), #1e3a8a);
+  color: white;
+  padding: 15px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: none;
+  box-shadow: 0 4px 15px rgba(10, 37, 64, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(10, 37, 64, 0.4);
+  background: linear-gradient(135deg, #1e3a8a, var(--primary-color));
+}
+
+.full-width-btn {
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
+  font-size: 1.1rem;
+}
+
+.glow-effect {
+  box-shadow: 0 0 20px rgba(0, 122, 255, 0.5);
+}
+
+/* --- FORMULAIRE --- */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .form-grid { grid-template-columns: 1fr; }
+}
+
+.form-group { margin-bottom: 15px; }
+.form-group.full-width { grid-column: 1 / -1; }
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.input-icon {
+  position: relative;
+}
+
+.input-icon i {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+input, textarea {
+  width: 100%;
+  padding: 12px 15px 12px 45px; /* Espace pour l'icone */
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 1rem;
+  transition: 0.3s;
+  background: #f8fafc;
+}
+
+textarea { padding-left: 15px; } /* Pas d'icone dans textarea */
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  background: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+/* --- SÉLECTION MÉDECIN --- */
+.medecin-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.med-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: white;
+  border: 1px solid #e2e8f0;
+  padding: 15px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+  text-align: left;
+}
+
+.med-btn:hover, .med-btn.selected {
+  border-color: var(--accent-color);
+  background: #f0f9ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+}
+
+.avatar {
+  font-size: 2rem;
+  background: #e0f2fe;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.med-info strong { display: block; color: var(--primary-color); }
+.med-info span { font-size: 0.85rem; color: #64748b; }
+
+/* --- PAIEMENT --- */
+.price-tag {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin: 10px 0;
+}
+
+.payment-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin: 30px 0;
+}
+
+.payment-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  width: 140px;
+  height: 140px;
+  background: #fff;
+  border: 2px solid #e2e8f0;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.payment-option img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+.payment-option:hover {
+  border-color: var(--success-color);
+  background: #ecfdf5;
+  transform: scale(1.05);
+}
+
+.alert-box {
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
+  padding: 15px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #92400e;
+  font-size: 0.9rem;
+}
+
+/* --- CONFIRMATION --- */
+.success-animation {
+  text-align: center;
+  font-size: 4rem;
+  color: var(--success-color);
+  margin-bottom: 20px;
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.call-container {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.pulse-btn {
+  background: var(--success-color);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+  70% { box-shadow: 0 0 0 15px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
+/* --- FOOTER --- */
+footer {
+  text-align: center;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.85rem;
+  margin-top: 50px;
+}
+
+/* --- UTILITAIRES --- */
+.hidden { display: none; }
+
+/* Animation d'apparition simple */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

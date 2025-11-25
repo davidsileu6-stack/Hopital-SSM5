@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Médecin – SSM5</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css"> 
+
+    <style>
+        /* Styles spécifiques au dashboard, gardés ici pour l'intégration de Canvas */
+        .dashboard-container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: 1fr 2fr; /* Layout pour les cartes et la table */
+        }
+        @media (max-width: 900px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        .chart-container {
+            width: 100%;
+            padding: 20px;
+            height: auto; /* Laisse Chart.js déterminer la hauteur */
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="background-slider"></div>
+    <div class="overlay"></div>
+
+    <div class="dashboard-container">
+
+        <div class="sidebar">
+            
+            <header class="glass-card header-card">
+                <h2 id="welcome">
+                    <i class="fa-solid fa-user-doctor"></i> Dashboard <br>
+                    Dr. <span style="color:var(--accent-color);">[Nom du Médecin]</span>
+                </h2>
+                <button id="logout" class="btn-primary" style="background-color:red; margin-top: 20px;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Se déconnecter
+                </button>
+            </header>
+
+            <div class="stats-grid">
+                <div class="glass-card stat-card">
+                    <h3><i class="fa-solid fa-sack-dollar"></i> Solde Actuel</h3>
+                    <p class="stat-value" id="current-gains">...</p>
+                </div>
+                 <div class="glass-card stat-card">
+                    <h3><i class="fa-solid fa-calendar-check"></i> Consultations/Sem.</h3>
+                    <p class="stat-value" id="weekly-rdv">...</p>
+                </div>
+            </div>
+            
+            <section class="glass-card chart-section">
+                <h3>Mes gains hebdomadaires</h3>
+                <div class="chart-container">
+                    <canvas id="gainChart"></canvas>
+                </div>
+            </section>
+        </div>
+
+        <section class="glass-card table-section">
+            <h2><i class="fa-solid fa-calendar-alt"></i> Rendez-vous programmés</h2>
+            
+            <table id="rdv-table" class="styled-table">
+                <thead>
+                    <tr>
+                        <th><i class="fa-solid fa-hashtag"></i> ID</th>
+                        <th><i class="fa-solid fa-user"></i> Nom Patient</th>
+                        <th><i class="fa-solid fa-phone"></i> Téléphone</th>
+                        <th><i class="fa-solid fa-clock"></i> Heure</th>
+                        <th><i class="fa-solid fa-video"></i> Action</th> 
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </section>
+
+    </div>
+
+    <script src="JS/chart.min.js"></script>
+    <script src="JS/dashboard.js"></script>
+
+</body>
+</html>

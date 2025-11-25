@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hôpital Militaire SSM5 – Téléconsultation</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <div id="background-slider"></div>
+  <div class="overlay"></div> <div class="main-wrapper">
+    <header>
+      <div class="logo-area">
+        <i class="fa-solid fa-star-of-life fa-2x"></i>
+        <h1>Hôpital Militaire SSM5</h1>
+      </div>
+      <p class="subtitle">Excellence Médicale & Innovation Technologique</p>
+      <a href="#prendre-rdv" class="btn-primary glow-effect">
+        <i class="fa-solid fa-video"></i> Commencer une consultation
+      </a>
+    </header>
+
+    <section class="glass-card about">
+      <div class="icon-header"><i class="fa-solid fa-user-doctor"></i></div>
+      <h2>Commandement Médical</h2>
+      <p>
+        Sous le commandement du <strong>Colonel Médecin Sileu</strong>, l'SSM5 allie rigueur militaire et expertise cardiologique.
+      </p>
+      <p>
+        Notre plateau technique de dernière génération garantit une prise en charge rapide et sécurisée.
+      </p>
+    </section>
+
+    <section id="prendre-rdv" class="glass-card">
+      <h2><i class="fa-regular fa-calendar-check"></i> Formulaire d'admission</h2>
+      <p>Veuillez renseigner vos informations cliniques.</p>
+
+      <form class="rdv-form">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="nom">Nom complet</label>
+            <div class="input-icon">
+              <i class="fa-solid fa-user"></i>
+              <input type="text" id="nom" name="nom" placeholder="Votre nom" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-icon">
+              <i class="fa-solid fa-envelope"></i>
+              <input type="email" id="email" name="email" placeholder="exemple@mail.com" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Téléphone</label>
+            <div class="input-icon">
+              <i class="fa-solid fa-phone"></i>
+              <input type="tel" id="phone" name="phone" placeholder="+237 6XXXXXXXX" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="date">Date souhaitée</label>
+            <div class="input-icon">
+              <i class="fa-solid fa-calendar"></i>
+              <input type="date" id="date" name="date" required>
+            </div>
+          </div>
+          
+           <div class="form-group">
+            <label for="heure">Heure</label>
+            <div class="input-icon">
+              <i class="fa-solid fa-clock"></i>
+              <input type="time" id="heure" name="heure" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="symptomes">Motif de consultation</label>
+          <textarea id="symptomes" name="symptomes" rows="4" placeholder="Décrivez vos symptômes..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-primary full-width-btn">
+          Évaluer et trouver un médecin <i class="fa-solid fa-arrow-right"></i>
+        </button>
+      </form>
+    </section>
+
+    <section id="medecin-selection" class="glass-card hidden">
+      <h2>Personnel Disponible</h2>
+      <p>Sélectionnez votre praticien :</p>
+
+      <div class="medecin-buttons">
+        <button class="med-btn" data-medecin="Dr. Marie Ndongo">
+          <div class="avatar">👩‍⚕️</div>
+          <div class="med-info">
+            <strong>COL Dr. Sileu</strong>
+            <span>Cardiologue</span>
+          </div>
+        </button>
+        
+        <button class="med-btn" data-medecin="Dr. Paul Tchinda">
+          <div class="avatar">👨‍⚕️</div>
+          <div class="med-info">
+            <strong>Dr. Paul Tchinda</strong>
+            <span>Généraliste</span>
+          </div>
+        </button>
+        
+        <button class="med-btn" data-medecin="Dr. Jean Dupont">
+          <div class="avatar">👨‍⚕️</div>
+          <div class="med-info">
+            <strong>AD Tapendji</strong>
+            <span>Urgentiste</span>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <section id="paiement-section" class="glass-card hidden">
+      <h2>Règlement de la consultation</h2>
+      <div class="price-tag">2 000 XAF</div>
+      <p>Transaction sécurisée via Mobile Money</p>
+
+      <div class="payment-buttons">
+        <button class="pay-btn payment-option mtn" data-method="mtn">
+          <img src="assets/images/MOMO.png" class="pay-logo" alt="MTN">
+          <span>Payer avec MTN MoMo</span>
+        </button>
+
+        <button class="pay-btn payment-option orange" data-method="orange">
+          <img src="assets/images/OM.png" class="pay-logo" alt="Orange">
+          <span>Payer avec Orange Money</span>
+        </button>
+      </div>
+
+      <div class="alert-box">
+        <i class="fa-solid fa-mobile-screen-button"></i>
+        <p>Validez la notification sur votre téléphone.</p>
+      </div>
+    </section>
+
+    <section id="confirmation-section" class="glass-card hidden">
+      <div class="success-animation">
+        <i class="fa-regular fa-circle-check"></i>
+      </div>
+      <h2>Confirmation Validée</h2>
+      <p id="confirmation-message"></p>
+
+      <div class="call-container">
+        <a id="call-link" href="#" target="_blank" class="btn-primary pulse-btn">
+          <i class="fa-solid fa-video"></i> Rejoindre la salle d'attente virtuelle
+        </a>
+      </div>
+    </section>
+<section id="paiement-section" class="glass-card hidden">
+  <h2>Règlement de la consultation</h2>
+  <div class="price-tag">2 000 XAF</div>
+  <p>Choisissez votre méthode de paiement sécurisée :</p>
+
+  <div class="payment-buttons">
+
+    <button class="pay-btn btn-mtn payment-option" data-method="mtn">
+      <div class="logo-wrapper">
+        <img src="assets/images/MOMO.png" class="pay-logo" alt="MTN MoMo">
+      </div>
+      <span>MTN MoMo</span>
+      <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+    </button>
+
+    <button class="pay-btn btn-orange payment-option" data-method="orange">
+      <div class="logo-wrapper">
+        <img src="assets/images/OM.png" class="pay-logo" alt="Orange Money">
+      </div>
+      <span>Orange Money</span>
+      <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+    </button>
+
+  </div>
+
+  <div class="alert-box">
+    <i class="fa-solid fa-mobile-screen-button"></i>
+    <div>
+      <strong>Action requise :</strong>
+      <p style="margin:0; font-size: 0.9em;">Une demande de débit va s'afficher sur votre téléphone. Validez avec votre code secret.</p>
+    </div>
+  </div>
+</section>
+    <footer>
+      <p>&copy; 2025 Hôpital Militaire SSM5. Honneur et Fidélité.</p>
+    </footer>
+  </div> <script src="js/main.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Espace Médecin – SSM5</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+        /* Styles CSS pour la logique d'affichage */
+        :root {
+            --primary-color: #004d40; /* Bleu Nuit adapté */
+            --accent-color: #00897b; /* Turquoise */
+        }
+        
+        /* Cacher la page du tableau de bord au démarrage */
+        #dashboard-wrapper {
+            display: none; /* Masqué par défaut */
+        }
+
+        /* Centrage de la connexion au démarrage */
+        .login-centered { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh;
+        }
+
+        /* Styles de la connexion */
+        .auth-container {
+            max-width: 450px;
+            width: 90%;
+            padding: 40px;
+            margin: auto;
+        }
+
+        /* Styles du dashboard */
+        .dashboard-layout {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            display: grid;
+            gap: 30px;
+            grid-template-columns: 1fr 2fr;
+        }
+        @media (max-width: 800px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+
+<body class="login-centered">
+
+    <div id="background-slider"></div>
+    <div class="overlay"></div>
+
+    <section id="login-section" class="glass-card auth-container">
+        <h2 style="text-align: center;">
+            <i class="fa-solid fa-lock" style="color: var(--primary-color);"></i> Connexion Espace Médecin
+        </h2>
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username"><i class="fa-solid fa-user-tag"></i> Nom utilisateur</label>
+                <input type="text" id="username" placeholder="Ex : drsileu" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password"><i class="fa-solid fa-key"></i> Mot de passe</label>
+                <input type="password" id="password" placeholder="Mot de passe" required>
+            </div>
+
+            <button type="submit" class="btn-primary full-width-btn" style="margin-top: 20px;">
+                <i class="fa-solid fa-sign-in-alt"></i> Se connecter
+            </button>
+        </form>
+        <p id="login-error" style="color:red; text-align: center; margin-top: 10px;"></p>
+    </section>
+
+    <div id="dashboard-wrapper"> 
+        <section id="medecin-dashboard" class="dashboard-layout">
+            
+            <div>
+                <div class="glass-card" style="margin-bottom: 20px;">
+                    <h2 style="color: var(--primary-color);"><i class="fa-solid fa-stethoscope"></i> Bienvenue, Docteur</h2>
+                    
+                    <nav style="margin: 20px 0;">
+                        <button onclick="location.href='dashboard-gains.html'" class="btn-primary" style="background-color: var(--accent-color); margin-bottom: 10px;">
+                            <i class="fa-solid fa-chart-line"></i> Voir mes gains
+                        </button>
+                        <button onclick="location.href='medecin.html'" class="btn-primary">
+                            <i class="fa-solid fa-home"></i> Tableau de bord
+                        </button>
+                    </nav>
+
+                    <button id="logout-btn" class="btn-primary full-width-btn" style="background-color: #dc3545; margin-top: 20px;">
+                        <i class="fa-solid fa-power-off"></i> Se déconnecter
+                    </button>
+                </div>
+
+
+                <div class="glass-card">
+                    <h3><i class="fa-solid fa-calendar-alt"></i> Mes disponibilités</h3>
+                    <form id="disponibilite-form">
+                        <div class="form-grid" style="grid-template-columns: 1fr 1fr;">
+                            <div class="form-group">
+                                <label for="jour">Jour</label>
+                                <select id="jour" required>
+                                    <option value="">Choisir un jour</option>
+                                    <option value="Lundi">Lundi</option>
+                                    <option value="Mardi">Mardi</option>
+                                    <option value="Mercredi">Mercredi</option>
+                                    <option value="Jeudi">Jeudi</option>
+                                    <option value="Vendredi">Vendredi</option>
+                                    <option value="Samedi">Samedi</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heureDebut">Heure début</label>
+                                <input type="time" id="heureDebut" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heureFin">Heure fin</label>
+                                <input type="time" id="heureFin" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary full-width-btn" style="margin-top: 10px;">
+                            <i class="fa-solid fa-plus-circle"></i> Ajouter disponibilité
+                        </button>
+                    </form>
+
+                    <table id="disponibilites-table" class="styled-table">
+                        <thead>
+                            <tr>
+                                <th>Jour</th>
+                                <th>Début</th>
+                                <th>Fin</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="glass-card">
+                <h2><i class="fa-solid fa-list-check"></i> Rendez-vous programmés</h2>
+                <p style="margin-bottom: 20px;">Liste des consultations à venir.</p>
+
+                <table id="rdv-table" class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Téléphone</th>
+                            <th>Médecin</th>
+                            <th><i class="fa-solid fa-calendar-day"></i> Date & Heure</th>
+                            <th><i class="fa-solid fa-video"></i> Lien</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <script>
+    // --- LOGICIEL DE CONNEXION ---
+    const loginForm = document.getElementById("login-form");
+    const loginSection = document.getElementById("login-section");
+    const dashboardWrapper = document.getElementById("dashboard-wrapper"); // Nouvel élément
+    const loginError = document.getElementById("login-error");
+
+    // Compte médecin de test
+    const MEDECIN_USERNAME = "admin";
+    const MEDECIN_PASSWORD = "admin";
+
+    // Connexion
+    loginForm.addEventListener("submit", function(e){
+      e.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      if(username === MEDECIN_USERNAME && password === MEDECIN_PASSWORD){
+        // 1. Masque la connexion
+        loginSection.classList.add("hidden");
+        // 2. Affiche le tableau de bord (le wrapper)
+        dashboardWrapper.style.display = 'block';
+        // 3. Retire le centrage du body pour que le tableau de bord s'affiche normalement
+        document.body.classList.remove('login-centered'); 
+        
+        chargerRendezVous();
+      } else {
+        loginError.textContent = "Nom utilisateur ou mot de passe incorrect.";
+      }
+    });
+
+    // Déconnexion (Mise à jour)
+    document.getElementById("logout-btn").addEventListener("click", function() {
+        // 1. Masque le tableau de bord
+        dashboardWrapper.style.display = 'none';
+        // 2. Affiche la connexion
+        loginSection.classList.remove("hidden");
+        // 3. Remet le centrage du body
+        document.body.classList.add('login-centered');
+        loginForm.reset();
+    });
+
+
+    // --- AJOUT DES DISPONIBILITÉS ---
+    const dispoForm = document.getElementById("disponibilite-form");
+    const dispoTableBody = document.querySelector("#disponibilites-table tbody");
+
+    dispoForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const jour = document.getElementById("jour").value;
+      const debut = document.getElementById("heureDebut").value;
+      const fin = document.getElementById("heureFin").value;
+
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td>${jour}</td>
+        <td>${debut}</td>
+        <td>${fin}</td>
+      `;
+
+      dispoTableBody.appendChild(tr);
+      dispoForm.reset();
+    });
+
+    // --- CHARGEMENT DES DONNÉES DEPUIS LA BASE ---
+    function chargerRendezVous() {
+      const rdvTableBody = document.querySelector("#rdv-table tbody");
+      
+      fetch("http://localhost:3000/patients")
+        .then(res => res.json())
+        .then(data => {
+          rdvTableBody.innerHTML = "";
+
+          data.forEach(p => {
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td>${p.id}</td>
+              <td>${p.nom}</td>
+              <td>${p.phone}</td>
+              <td>${p.medecin}</td>
+              <td>${p.date_consultation}</td>
+              <td><button class="btn-primary tiny-btn"><i class="fa-solid fa-video"></i> Appeler</button></td>
+            `;
+            rdvTableBody.appendChild(tr);
+          });
+        })
+        .catch(err => {
+            console.error("Erreur chargement RDV :", err);
+            rdvTableBody.innerHTML = `<tr><td colspan="6" style="color:red;">Erreur de connexion à l'API.</td></tr>`;
+        });
+    }
+    </script>
+</body>
+</html>
