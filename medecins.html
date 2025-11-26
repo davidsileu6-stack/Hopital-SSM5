@@ -13,44 +13,37 @@
     <style>
         /* Styles CSS pour la logique d'affichage */
         :root {
-            --primary-color: #004d40; /* Bleu Nuit adapté */
-            --accent-color: #00897b; /* Turquoise */
+            --primary-color: #004d40;
+            --accent-color: #00897b;
         }
         
-        /* Cacher la page du tableau de bord au démarrage */
-        #dashboard-wrapper {
-            display: none; /* Masqué par défaut */
+        /* IMAGE DE FOND POUR LE MÉDECIN (IMAGE 7) */
+        /* On force l'image ici pour être sûr qu'elle s'affiche sans JS */
+        #background-slider {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url('assets/images/7.jpg'); /* Chemin relatif correct */
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
         }
 
-        /* Centrage de la connexion au démarrage */
+        #dashboard-wrapper { display: none; }
+
         .login-centered { 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
 
-        /* Styles de la connexion */
         .auth-container {
-            max-width: 450px;
-            width: 90%;
-            padding: 40px;
-            margin: auto;
+            max-width: 450px; width: 90%; padding: 40px; margin: auto;
         }
 
-        /* Styles du dashboard */
         .dashboard-layout {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 20px;
-            display: grid;
-            gap: 30px;
-            grid-template-columns: 1fr 2fr;
+            max-width: 1000px; margin: 40px auto; padding: 20px;
+            display: grid; gap: 30px; grid-template-columns: 1fr 2fr;
         }
         @media (max-width: 800px) {
-            .dashboard-layout {
-                grid-template-columns: 1fr;
-            }
+            .dashboard-layout { grid-template-columns: 1fr; }
         }
         .hidden { display: none !important; }
     </style>
@@ -91,7 +84,7 @@
                     <h2 style="color: var(--primary-color);"><i class="fa-solid fa-stethoscope"></i> Bienvenue, Docteur</h2>
                     
                     <nav style="margin: 20px 0;">
-                        <button onclick="location.href='dashboard-gains.html'" class="btn-primary" style="background-color: var(--accent-color); margin-bottom: 10px;">
+                        <button onclick="location.href='dashboardgain.html'" class="btn-primary" style="background-color: var(--accent-color); margin-bottom: 10px;">
                             <i class="fa-solid fa-chart-line"></i> Voir mes gains
                         </button>
                         <button onclick="location.href='medecin.html'" class="btn-primary">
@@ -174,80 +167,62 @@
     </div>
 
     <script>
-    // --- LOGICIEL DE CONNEXION ---
+    // --- LOGIQUE DE CONNEXION ---
     const loginForm = document.getElementById("login-form");
     const loginSection = document.getElementById("login-section");
-    const dashboardWrapper = document.getElementById("dashboard-wrapper"); // Nouvel élément
+    const dashboardWrapper = document.getElementById("dashboard-wrapper");
     const loginError = document.getElementById("login-error");
 
-    // Compte médecin de test
     const MEDECIN_USERNAME = "admin";
     const MEDECIN_PASSWORD = "admin";
 
-    // Connexion
     loginForm.addEventListener("submit", function(e){
       e.preventDefault();
-
       const username = document.getElementById("username").value;
       const password = document.getElementById("password").value;
 
       if(username === MEDECIN_USERNAME && password === MEDECIN_PASSWORD){
-        // 1. Masque la connexion
         loginSection.classList.add("hidden");
-        // 2. Affiche le tableau de bord (le wrapper)
         dashboardWrapper.style.display = 'block';
-        // 3. Retire le centrage du body pour que le tableau de bord s'affiche normalement
         document.body.classList.remove('login-centered'); 
-        
         chargerRendezVous();
       } else {
         loginError.textContent = "Nom utilisateur ou mot de passe incorrect.";
       }
     });
 
-    // Déconnexion (Mise à jour)
     document.getElementById("logout-btn").addEventListener("click", function() {
-        // 1. Masque le tableau de bord
         dashboardWrapper.style.display = 'none';
-        // 2. Affiche la connexion
         loginSection.classList.remove("hidden");
-        // 3. Remet le centrage du body
         document.body.classList.add('login-centered');
         loginForm.reset();
     });
 
-
-    // --- AJOUT DES DISPONIBILITÉS ---
+    // --- DISPONIBILITÉS ---
     const dispoForm = document.getElementById("disponibilite-form");
     const dispoTableBody = document.querySelector("#disponibilites-table tbody");
 
     dispoForm.addEventListener("submit", (e) => {
       e.preventDefault();
-
       const jour = document.getElementById("jour").value;
       const debut = document.getElementById("heureDebut").value;
       const fin = document.getElementById("heureFin").value;
 
       const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td>${jour}</td>
-        <td>${debut}</td>
-        <td>${fin}</td>
-      `;
-
+      tr.innerHTML = `<td>${jour}</td><td>${debut}</td><td>${fin}</td>`;
       dispoTableBody.appendChild(tr);
       dispoForm.reset();
     });
 
-    // --- CHARGEMENT DES DONNÉES DEPUIS LA BASE ---
+    // --- CHARGEMENT RDV ---
     function chargerRendezVous() {
       const rdvTableBody = document.querySelector("#rdv-table tbody");
-      
+      // Note: Sur GitHub Pages, localhost ne marchera pas. Il faudra une vraie API ou des fausses données.
+      // Je laisse localhost pour tes tests locaux.
       fetch("http://localhost:3000/patients")
         .then(res => res.json())
         .then(data => {
           rdvTableBody.innerHTML = "";
-
           data.forEach(p => {
             const tr = document.createElement("tr");
             tr.innerHTML = `
@@ -263,7 +238,12 @@
         })
         .catch(err => {
             console.error("Erreur chargement RDV :", err);
-            rdvTableBody.innerHTML = `<tr><td colspan="6" style="color:red;">Erreur de connexion à l'API.</td></tr>`;
+            // Données de test si l'API échoue (utile pour GitHub Pages)
+            rdvTableBody.innerHTML = `
+                <tr>
+                    <td>1</td><td>Test Patient</td><td>+237 60000000</td><td>Dr. Sileu</td><td>Aujourd'hui</td>
+                    <td><button class="btn-primary tiny-btn"><i class="fa-solid fa-video"></i> Appeler</button></td>
+                </tr>`;
         });
     }
     </script>
