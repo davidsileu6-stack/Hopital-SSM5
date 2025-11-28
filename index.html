@@ -3,20 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hôpital Militaire SSM5 – Téléconsultation</title>
+  <title>Hôpital Militaire du SSM5 – Téléconsultation</title>
   
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
   <link rel="stylesheet" href="CSS/style.css" />
+
+  
 </head>
 <body>
 
   <div id="background-slider"></div>
-  <div class="overlay"></div> <div class="main-wrapper">
+  <div class="overlay"></div> 
+  
+  <div class="main-wrapper">
     <header>
       <div class="logo-area">
         <i class="fa-solid fa-star-of-life fa-2x"></i>
-        <h1>Hôpital Militaire SSM5</h1>
+        <h1>Hôpital Militaire du SSM5</h1>
       </div>
       <p class="subtitle">Excellence Médicale & Innovation Technologique</p>
       <a href="#prendre-rdv" class="btn-primary glow-effect">
@@ -28,7 +33,7 @@
       <div class="icon-header"><i class="fa-solid fa-user-doctor"></i></div>
       <h2>Commandement Médical</h2>
       <p>
-        Sous le commandement du <strong>Colonel Médecin Sileu</strong>, l'SSM5 allie rigueur militaire et expertise cardiologique.
+        Sous le commandement du <strong>Colonel Médecin Sileu</strong>, l'hopital militaire du SSM5 allie rigueur militaire et expertise cardiologique.
       </p>
       <p>
         Notre plateau technique de dernière génération garantit une prise en charge rapide et sécurisée.
@@ -127,23 +132,32 @@
     <section id="paiement-section" class="glass-card hidden">
       <h2>Règlement de la consultation</h2>
       <div class="price-tag">2 000 XAF</div>
-      <p>Transaction sécurisée via Mobile Money</p>
+      <p>Choisissez votre méthode de paiement sécurisée :</p>
 
       <div class="payment-buttons">
-        <button class="pay-btn payment-option mtn" data-method="mtn">
-          <img src="assets/images/MOMO.png" class="pay-logo" alt="MTN">
-          <span>Payer avec MTN MoMo</span>
+        <button class="pay-btn btn-mtn payment-option" data-method="mtn">
+          <div class="logo-wrapper">
+            <img src="assets/images/MOMO.png" class="pay-logo" alt="MTN MoMo">
+          </div>
+          <span>MTN MoMo</span>
+          <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         </button>
 
-        <button class="pay-btn payment-option orange" data-method="orange">
-          <img src="assets/images/OM.png" class="pay-logo" alt="Orange">
-          <span>Payer avec Orange Money</span>
+        <button class="pay-btn btn-orange payment-option" data-method="orange">
+          <div class="logo-wrapper">
+            <img src="assets/images/OM.png" class="pay-logo" alt="Orange Money">
+          </div>
+          <span>Orange Money</span>
+          <div class="check-icon"><i class="fa-solid fa-check"></i></div>
         </button>
       </div>
 
       <div class="alert-box">
         <i class="fa-solid fa-mobile-screen-button"></i>
-        <p>Validez la notification sur votre téléphone.</p>
+        <div>
+          <strong>Action requise :</strong>
+          <p style="margin:0; font-size: 0.9em;">Une demande de débit va s'afficher sur votre téléphone. Validez avec votre code secret.</p>
+        </div>
       </div>
     </section>
 
@@ -160,44 +174,12 @@
         </a>
       </div>
     </section>
-<section id="paiement-section" class="glass-card hidden">
-  <h2>Règlement de la consultation</h2>
-  <div class="price-tag">2 000 XAF</div>
-  <p>Choisissez votre méthode de paiement sécurisée :</p>
 
-  <div class="payment-buttons">
-
-    <button class="pay-btn btn-mtn payment-option" data-method="mtn">
-      <div class="logo-wrapper">
-        <img src="assets/images/MOMO.png" class="pay-logo" alt="MTN MoMo">
-      </div>
-      <span>MTN MoMo</span>
-      <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-    </button>
-
-    <button class="pay-btn btn-orange payment-option" data-method="orange">
-      <div class="logo-wrapper">
-        <img src="assets/images/OM.png" class="pay-logo" alt="Orange Money">
-      </div>
-      <span>Orange Money</span>
-      <div class="check-icon"><i class="fa-solid fa-check"></i></div>
-    </button>
-
-  </div>
-
-  <div class="alert-box">
-    <i class="fa-solid fa-mobile-screen-button"></i>
-    <div>
-      <strong>Action requise :</strong>
-      <p style="margin:0; font-size: 0.9em;">Une demande de débit va s'afficher sur votre téléphone. Validez avec votre code secret.</p>
-    </div>
-  </div>
-</section>
     <footer>
       <p>&copy; 2025 Hôpital Militaire SSM5. Honneur et Fidélité.</p>
     </footer>
-  </div> <script src="js/main.js"></script>
-
+  </div> 
+  
+  <script src="js/main.js"></script> 
 </body>
 </html>
-
